@@ -4,12 +4,12 @@ using namespace cv;
 
 int main(int argc, char const *argv[])
 {
-    Scalar lower_blue = Scalar(100,43,46);
-    Scalar upper_blue = Scalar(155,255,255);
+    Scalar lower_blue = Scalar(97,203,10);
+    Scalar upper_blue = Scalar(105,255,255);
     Scalar lower_red = Scalar(0,43,46);
     Scalar upper_red = Scalar(10,255,255);
     VideoCapture cap;
-    cap.open("/home/jiang/桌面/hw/RoboCup_Assessment/task2/video2.mp4");
+    cap.open("/home/knot41/桌面/hw/RoboCup_Assessment/task2/video2.mp4");
     Mat frame,hsv,thr,mask1,mask2,kernel,labels1,stats1,centroids1,labels2,stats2,centroids2;
     while(1) {
         cap >> frame;
@@ -25,9 +25,7 @@ int main(int argc, char const *argv[])
         int num1 = connectedComponentsWithStats(mask1,labels1,stats1,centroids1);
         int num2 = connectedComponentsWithStats(mask2,labels2,stats2,centroids2);
         for(int i = 1;i < num1;++i){
-        if(stats1.at<int>(i,CC_STAT_AREA) < 2300 && stats1.at<int>(i,CC_STAT_AREA) > 1500
-        && stats1.at<int>(i,CC_STAT_WIDTH) < 50 && stats1.at<int>(i,CC_STAT_HEIGHT) > 70
-        && stats1.at<int>(i,CC_STAT_WIDTH) > 35){
+        if(stats1.at<int>(i,CC_STAT_HEIGHT) > stats1.at<int>(i,CC_STAT_WIDTH) && stats1.at<int>(i,CC_STAT_HEIGHT) > 60){
             Rect rect(
                 stats1.at<int>(i,CC_STAT_LEFT),
                 stats1.at<int>(i,CC_STAT_TOP),
